@@ -13,6 +13,6 @@ https://en.wikipedia.org/wiki/Fair_queuing
 https://en.wikipedia.org/wiki/Weighted_fair_queueing
 
 
-This Java library aims to provide a simple framework which encapsulates a Multi-tenant Work Queue, that allows plugging in different work-scheduling algorithms.
+This Java library aims to provide a simple framework which encapsulates a Multi-tenant Work Queue, that allows plugging in different work-scheduling algorithms. It currently supports only the Fair queueing algorithm, others will follow in few days.
 
 Please have a look at the unit tests to get an idea about the usage.

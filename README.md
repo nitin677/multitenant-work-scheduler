@@ -15,4 +15,47 @@ https://en.wikipedia.org/wiki/Weighted_fair_queueing
 
 This Java library aims to provide a simple framework which encapsulates a Multi-tenant Work Queue, that allows plugging in different work-scheduling algorithms. It currently supports only the Fair queueing algorithm, others will follow in few days.
 
-Please have a look at the unit tests to get an idea about the usage.
+Please have a look at the unit tests/client to get an idea about the usage.
+
+Specifically you can check test/client "testFairStrategyFewerTenantsSingleWorker" which demonstrates that the scheduler gives a fair chance to all tenants. To illustrate this, the client uses fewer number of tenants, and sets number of worker threads to 1, so that it's evident from the logs that tenants' tasks are picked up in round-robin fashion from the multi-tenant work queue. Also starting tenant producers immediately after creating them. This is to show that initially scheduler schedules more tasks from tenants 0 and 1 because their producers are started first. But eventually when all tenants's producers are started, scheduler schedules them in round-robin fashion.
+
+On running this test/client, you can see the output similar to the following:
+Initialized Multi-tenant worker thread 0
+
+Processing task for tenantId:1
+
+Processing task for tenantId:0
+
+Processing task for tenantId:1
+
+Processing task for tenantId:0
+
+Processing task for tenantId:1
+
+Processing task for tenantId:3
+
+Processing task for tenantId:2
+
+Processing task for tenantId:0
+
+Processing task for tenantId:4
+
+Processing task for tenantId:1
+
+Processing task for tenantId:3
+
+Processing task for tenantId:2
+
+Processing task for tenantId:0
+
+Processing task for tenantId:4
+
+Processing task for tenantId:1
+
+Processing task for tenantId:3
+
+Processing task for tenantId:2
+
+Processing task for tenantId:0
+
+As it is evident from the output above, that after the first few tasks, the scheduler picks the tenants in round-robin fashion - 3,2,0,4,1,3,2,0,4,1.......

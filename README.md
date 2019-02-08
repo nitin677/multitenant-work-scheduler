@@ -21,25 +21,27 @@ Specifically you can check test/client "testFairStrategyFewerTenantsSingleWorker
 
 On running this test/client, you can see the output similar to the following:
 --------------------------------------------
-Initialized Multi-tenant worker thread 0
-Processing task for tenantId:1
-Processing task for tenantId:0
-Processing task for tenantId:1
-Processing task for tenantId:0
-Processing task for tenantId:1
-Processing task for tenantId:3
-Processing task for tenantId:2
-Processing task for tenantId:0
-Processing task for tenantId:4
-Processing task for tenantId:1
-Processing task for tenantId:3
-Processing task for tenantId:2
-Processing task for tenantId:0
-Processing task for tenantId:4
-Processing task for tenantId:1
-Processing task for tenantId:3
-Processing task for tenantId:2
-Processing task for tenantId:0
+
+Initialized Multi-tenant worker thread 0\n
+Processing task for tenantId:1\n
+Processing task for tenantId:0\n
+Processing task for tenantId:1\n
+Processing task for tenantId:0\n
+Processing task for tenantId:1\n
+Processing task for tenantId:3\n
+Processing task for tenantId:2\n
+Processing task for tenantId:0\n
+Processing task for tenantId:4\n
+Processing task for tenantId:1\n
+Processing task for tenantId:3\n
+Processing task for tenantId:2\n
+Processing task for tenantId:0\n
+Processing task for tenantId:4\n
+Processing task for tenantId:1\n
+Processing task for tenantId:3\n
+Processing task for tenantId:2\n
+Processing task for tenantId:0\n
+
 --------------------------------------------
 
 As it is evident from the output above, that after the first few tasks, the scheduler picks the tenants in round-robin fashion - 3,2,0,4,1,3,2,0,4,1.......

@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuite name="com.example.platform.mt.MultiTenantWorkQueueManagerTest" tests="10" skipped="0" failures="0" errors="0" timestamp="2019-01-31T05:41:54" hostname="nitpatel-lap1" time="24.737">
+  <properties/>
+  <testcase name="submitWorkDoesNotBlockIfWorkCapacityNotExceeded" classname="com.example.platform.mt.MultiTenantWorkQueueManagerTest" time="1.032"/>
+  <testcase name="submitWorkPositive" classname="com.example.platform.mt.MultiTenantWorkQueueManagerTest" time="0.001"/>
+  <testcase name="deProvisionTenantSubmitWorkThrowsException" classname="com.example.platform.mt.MultiTenantWorkQueueManagerTest" time="0.001"/>
+  <testcase name="takeWork" classname="com.example.platform.mt.MultiTenantWorkQueueManagerTest" time="0.001"/>
+  <testcase name="testMultitenantFairStrategy" classname="com.example.platform.mt.MultiTenantWorkQueueManagerTest" time="21.692"/>
+  <testcase name="getNoOfTenants" classname="com.example.platform.mt.MultiTenantWorkQueueManagerTest" time="0.001"/>
+  <testcase name="submitWorkBlocksWhenWorkCapacityExceeded" classname="com.example.platform.mt.MultiTenantWorkQueueManagerTest" time="1.0"/>
+  <testcase name="takeWorkBlocksOnNoWork" classname="com.example.platform.mt.MultiTenantWorkQueueManagerTest" time="1.001"/>
+  <testcase name="submitWorkWithoutProvisioningTenant" classname="com.example.platform.mt.MultiTenantWorkQueueManagerTest" time="0.001"/>
+  <testcase name="provisionTenantAndSubmitWorkSuccessful" classname="com.example.platform.mt.MultiTenantWorkQueueManagerTest" time="0.001"/>
+  <system-out><![CDATA[Initialized Multi-tenant worker thread 0
+Initialized Multi-tenant worker thread 1
+Initialized Multi-tenant worker thread 2
+Initialized Multi-tenant worker thread 3
+Initialized Multi-tenant worker thread 4
+Initialized Multi-tenant worker thread 5
+Initialized Multi-tenant worker thread 6
+Initialized Multi-tenant worker thread 7
+Initialized Multi-tenant worker thread 8
+Initialized Multi-tenant worker thread 9
+Initialized Multi-tenant worker thread 10
+Initialized Multi-tenant worker thread 11
+Initialized Multi-tenant worker thread 12
+Initialized Multi-tenant worker thread 13
+Initialized Multi-tenant worker thread 14
+Initialized Multi-tenant worker thread 15
+Initialized Multi-tenant worker thread 16
+Initialized Multi-tenant worker thread 17
+Initialized Multi-tenant worker thread 18
+Initialized Multi-tenant worker thread 19
+Initialized Multi-tenant worker thread 20
+Initialized Multi-tenant worker thread 21
+Initialized Multi-tenant worker thread 22
+Initialized Multi-tenant worker thread 23
+Initialized Multi-tenant worker thread 24
+Initialized Multi-tenant worker thread 25
+Initialized Multi-tenant worker thread 26
+Initialized Multi-tenant worker thread 27
+Initialized Multi-tenant worker thread 28
+Initialized Multi-tenant worker thread 29
+Initialized Multi-tenant worker thread 30
+Initialized Multi-tenant worker thread 31
+Initialized Multi-tenant worker thread 32
+Initialized Multi-tenant worker thread 33
+Initialized Multi-tenant worker thread 34
+Initialized Multi-tenant worker thread 35
+Initialized Multi-tenant worker thread 36
+Initialized Multi-tenant worker thread 37
+Initialized Multi-tenant worker thread 38
+Initialized Multi-tenant worker thread 39
+Submitted tenantId:60 task at 1548913318956
+Processed at 1548913318960
+Check the difference between submitted time and processed time should not be more than a few ms. This confirms that when a new tenant is provisioned and when it submits a task, it doesn't have to wait behind all the previously submitted tasks from other tenants.
+Total time taken to process 600001 noOfTasks in seconds : 21
+Task producer thread 1 for tenant tenantId:0 was interrupted while submitting task Tenant: tenantId:0, 1,100
+Initialized Multi-tenant worker thread 123
+Multi-tenant worker thread 123 was interrupted while fetching task java.lang.InterruptedException
+]]></system-out>
+  <system-err><![CDATA[]]></system-err>
+</testsuite>

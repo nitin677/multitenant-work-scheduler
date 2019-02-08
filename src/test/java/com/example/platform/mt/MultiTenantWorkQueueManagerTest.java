@@ -49,6 +49,55 @@ public class MultiTenantWorkQueueManagerTest {
     public void tearDown() throws Exception {
     }
 
+    /**
+     * This test/client demonstrates that the scheduler gives a fair chance to all tenants.
+     * To illustrate this, using fewer number of tenants, and setting number of worker threads
+     * to 1, so that it's evident from the logs that tenants tasks are picked up in round-robin
+     * fashion. Also starting tenant producers immediately after creating them. This is to show
+     * that initially scheduler schedules more tasks from tenants 0 and 1 because their producers
+     * are started first. But eventually when all tenants's producers are started, scheduler
+     * schedules them in round-robin fashion.
+     */
+    @Test
+    public void testFairStrategyFewerTenantsSingleWorker() {
+        try {
+            long start = System.currentTimeMillis();
+            noOfTenants = 5;
+            totalWorkerThreads = 1;
+            concurrentClientsPerTenant = 10;
+
+            //override the current config, i.e., initialize queue manager with just only 5 tenants provisioned.
+            List<TenantConfig> tenantConfigList = createTenantConfigs();
+            queueManager = new MultiTenantWorkQueueManager(tenantConfigList,
+                SchedulingStrategy.FAIR_QUEUEING);
+
+            //init and start worker threads
+            for (int workers = 0; workers < totalWorkerThreads; workers++) {
+                MTWorkerThread worker = new MTWorkerThread(queueManager, workers);
+                worker.start();
+            }
+
+            //init producer threads for each tenant and start them.
+            Set<TaskProducer> producers = new HashSet<>();
+            for (String tenantId : tenantIds) {
+                for (int j = 0; j < concurrentClientsPerTenant; j++) {
+                    TaskProducer producer = new TaskProducer(queueManager, tenantId, j, tasksPerClient);
+                    producers.add(producer);
+                    producer.start();
+                }
+            }
+
+            int target = (noOfTenants)* concurrentClientsPerTenant * tasksPerClient;
+            while (queueManager.getProcessedTasksCount() != target) {
+                Thread.sleep(1000);
+            }
+            long end = System.currentTimeMillis();
+            System.out.println("Total time taken to process "+queueManager.getProcessedTasksCount()+" noOfTasks in seconds : "+(end - start)/1000);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
     @Test
     public void testMultitenantFairStrategy() {
         try {
@@ -65,10 +114,11 @@ public class MultiTenantWorkQueueManagerTest {
                 for (int j = 0; j < concurrentClientsPerTenant; j++) {
                     TaskProducer producer = new TaskProducer(queueManager, tenantId, j, tasksPerClient);
                     producers.add(producer);
+                    producer.start();
                 }
             }
-            for (TaskProducer producer : producers)
-                producer.start();
+            /*for (TaskProducer producer : producers)
+                producer.start();*/
 
             queueManager.provisionTenant(new TenantConfig("tenantId:"+noOfTenants, "tenantName:"+noOfTenants, 100));
             TaskProducer producer = new TaskProducer(queueManager, "tenantId:"+noOfTenants, 0, 1);

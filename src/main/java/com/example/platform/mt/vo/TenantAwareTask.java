@@ -42,6 +42,7 @@ public class TenantAwareTask implements Runnable {
 
     @Override
     public void run() {
+        System.out.println("Processing task for "+tenantId);
         task.run();
     }
 }
